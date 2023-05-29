@@ -1,0 +1,30 @@
+::-webkit-scrollbar {
+    width: 0.7rem;
+    height: 0.7rem;
+}
+
+::-webkit-scrollbar-track-piece {
+    /* 滚动槽 */
+    background-color: transparent;
+    border-radius: 0.6rem;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    /* height: 12px; */
+    // box-shadow: 0 0 10px 0 lightsalmon;
+    background-color: rgb(255, 160, 122, 0.3);
+    border-radius: 0.6rem;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    /* width: 12px; */
+    // box-shadow: 0 0 10px 0 lightsalmon;
+    background-color: rgb(255, 160, 122, 0.3);
+    border-radius: 0.6rem;
+}
+
+/* 滚动条鼠标移上去的样式 */
+::-webkit-scrollbar-thumb:vertical:hover,
+::-webkit-scrollbar-thumb:horizontal:hover {
+    background-color: rgb(255, 160, 122, 0.8);
+}

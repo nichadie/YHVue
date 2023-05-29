@@ -1,0 +1,27 @@
+.showAll_dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  ::v-deep .el-dialog {
+    margin: 0 auto !important;
+    min-height: 60%;
+    height: 90%;
+    max-height: 100%;
+    overflow: hidden;
+
+    .el-dialog__body {
+      position: absolute;
+      left: 0;
+      top: 54px;
+      bottom: 0;
+      right: 0;
+      z-index: 1;
+      overflow: hidden;
+      overflow-y: auto;
+      overflow-x: auto;
+      padding: 1rem 1.4rem;
+    }
+  }
+}

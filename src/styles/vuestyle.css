@@ -1,0 +1,66 @@
+/* 编辑按钮 */
+.tab-btn-edit {
+    margin-right: 0.4rem;
+}
+
+.tab-btn-delete {
+    margin-right: 0.4rem;
+}
+
+
+
+/* 条件 */
+.condition-form {
+    text-align: right;
+}
+
+/* 对话框弹窗按钮 */
+.dialog-footer {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin: 0.8rem 0;
+}
+
+.el-tag--dark {
+    border: 0;
+}
+
+/* 上传文件组件 */
+#div-upload {
+    display: flex;
+}
+
+#div-upload>div:first-child {
+    margin-right: 20px;
+}
+
+#div-upload .div-image {
+    text-align: center;
+}
+
+/* table属性size为mini的行样式 */
+/* .el-table--mini .el-table__cell {
+    padding: 2px 0;
+} */
+
+/* 全局代码块样式 */
+pre {
+    font-size: 1rem;
+    font-family: "Consolas";
+}
+
+pre>code {
+    font-size: 1.2rem;
+}
+
+/* 表单注的样式 */
+.form-tip {
+    color: gray;
+    font-size: 12px;
+    margin-left: 0.1rem;
+}
+
+.i-right {
+    margin-right: 0.1rem;
+}

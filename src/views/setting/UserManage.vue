@@ -3,13 +3,13 @@
       <!--表单 条件-->
       <el-form inline>
         <el-form-item label="昵称">
-          <el-input placeholder="昵称" :value="condition.nickname"></el-input>
+          <el-input placeholder="昵称" v-model="condition.nickname"></el-input>
         </el-form-item>
         <el-form-item label="角色">
           <el-select v-model="condition.roleid" :clearable="true">
             <el-option
               v-for="(item,index) in classifyList" :key="index"
-              :label="item.Name" :value="item.ID"
+              :label="item.roleName" v-model="item.id"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -69,13 +69,7 @@
         :data="userform"
         style="width: 100%"
         height="250">
-        <el-table-column
-          fixed
-          prop="rolename"
-          label="部门"
-          sortable
-          width="100">
-        </el-table-column>
+        
         <el-table-column
           prop="nickName"
          label="昵称"
@@ -101,16 +95,20 @@
           prop="status"
           label="状态"
           width="120">
+          <template slot-scope="scope">
+            <el-tag
+            :type="scope.row.status == '正常' ? 'success' : scope.row.status == '弃用'?'danger':'primary'"
+            disable-transitions>{{scope.row.status}}</el-tag>
+          </template>
         </el-table-column>
         <el-table-column
-          fixed="right"
           prop="option"
          label="操作"
-         width="120">
+         width="360">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-          <el-button type="text" size="small">编辑</el-button>
-          <el-button type="text" size="small">删除</el-button>
+          <el-button @click="handleClick(scope.row)" type="info" size="small">查看</el-button>
+          <el-button type="success" size="small">编辑</el-button>
+          <el-button type="danger" size="small">删除</el-button>
         </template>
         </el-table-column>
       </el-table>
@@ -121,7 +119,7 @@
         background
         :current-page.sync="page.pageIndex"
         :page-sizes="[10, 20, 50, 100]"
-        :page-size="10"
+        :page-size.sync="page.pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total">
       </el-pagination>
@@ -130,11 +128,13 @@
   
   <script>
   import {getUserPageList} from "@/api/setting/user"
+  import * as formatter from "@/utils/formatter"
+  import {getRolePageList} from '@/api/setting/role'
   export default {
     data(){
       return{
         roleID : null,//分类
-        tableData : [],
+
         page:{//页面数据
           pageSize:10,
           pageIndex:1,
@@ -144,12 +144,13 @@
           roleid:null
         },
         total:0,//数据总数
-        classifyList:[// 分类表 测试
-        {ID:1,Name:"a"},
-        {ID:2,Name:"b"}
-        ],
+        classifyList:[{  // 分类表 角色
+          id:'',
+          roleName:'',
+        }],
         userform:[{
           nickname:'',
+          roleID:'',
           rolename:'',
           age:'',
           sex:'',
@@ -170,32 +171,58 @@
       };
     },
     created(){
+      this.GetRolePageList();
       this.GetUserPageList();
-
+      
     },
     methods:{
       //获取列表数据
       GetUserPageList(){
-        console.log(this.condition.nickname,"999999")
+        
         //调用接口获取
         getUserPageList(this.page.pageIndex,this.page.pageSize,this.condition).then(res=>{
           if(res.code==-1){
-            this.$message.error("获取用户列表调用接口异常!")
+            this.$message.error("获取查询角色列表调用接口异常!")
           }
           if(res.code==200){
-            console.log(res)
+            //console.log(res)
             this.userform = res.data.list
             this.total = res.data.total
+            //格式化性别 格式化状态
+            for(var i = 0;i<this.userform.length;i++){
+              this.userform[i].sex = formatter.formatterSex(this.userform[i].sex)
+              this.userform[i].status = formatter.formatterStatus(this.userform[i].status,1)
+              
+             
+            }
+            
+            
           }
         }).catch(err=>{
           console.log(err)
         })
 
       },
-      
-      //改变数据大小
+      //获取角色分类数据（表头查询条件）
+        GetRolePageList(){
+        //调用接口获取
+        getRolePageList(this.page.pageIndex,this.page.pageSize).then(res=>{
+          if(res.code==-1){
+            this.$message.error("获取用户列表调用接口异常!")
+          }
+          if(res.code==200){
+            //console.log("角色",res)
+            this.classifyList = res.data.list
+          }
+        }).catch(err=>{
+          console.log(err)
+        })
+
+      },
+      //改变页数大小
       handleSizeChange(val){
-        this.pageSize = val
+        this.page.pageSize = val,
+        this.GetUserPageList()
       },
       //当前页改变
       handleCurrentChange(val) {
@@ -204,8 +231,7 @@
       },
       //弹出窗口新增/修改
       ShowUser(){
-        debugger
-        addUser(this.userform)
+        
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);

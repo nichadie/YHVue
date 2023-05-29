@@ -7,16 +7,16 @@ import {getSystemMenus} from '@/api/auth'
  * @param {状态管理对象} store 
  */
 export const initMenus = (router, store) => {
-    console.log("路由数据：", router.routes);
+    //console.log("路由数据：", router.routes);
     //如果vuex里面没有菜单数据，就去获取菜单路由数据
     if (store.state.routes.length <= 0) {
         //获取系统菜单
         getSystemMenus().then(res => {
                 if (res) {
-                    console.log("获取用户的权限数据：", res);
+                    //console.log("获取用户的权限数据：", res);
                     //格式化route路由数据
                     let fmtRoutes = formatRoutes(res.data);
-                    console.log("格式化好的路由：", fmtRoutes);
+                    //console.log("格式化好的路由：", fmtRoutes);
                     if (router.app.$store.state.routes.length <= 0) {
                         // 新增动态路由数据
                         router.addRoutes(fmtRoutes);

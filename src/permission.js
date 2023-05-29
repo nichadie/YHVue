@@ -13,7 +13,7 @@ const whiteList = ['/login'] // 可以直接进入的路由白名单
 
 // 全局前置守卫钩子函数
 router.beforeEach(async (to, from, next) => {
-  console.log("当前要跳转的路由", to.path);
+  //console.log("当前要跳转的路由", to.path);
   // 启动加载进度条
   NProgress.start()
   // 获取页面标题

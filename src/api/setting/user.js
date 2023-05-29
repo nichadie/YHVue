@@ -10,7 +10,7 @@ import request from "@/utils/request"
  */
 export function getUserPageList(pageIndex,pageSize,condition){
     return request({
-        url:'User/GetUserListPage?pageIndex=${pageIndex}&pageSize=${pageSize}',
+        url:`User/GetUserListPage?pageIndex=${pageIndex}&pageSize=${pageSize}`,
         method:'get',
         params:{
             nickname:condition.nickname,
@@ -21,24 +21,11 @@ export function getUserPageList(pageIndex,pageSize,condition){
 
 }
 
-
 /**
- * 查询用户数据列表
- * 
+ * 增加用户
+ * @param {*} userform 
+ * @returns 
  */
-export const getUserListPage = ( nickname,roleid,pageIndex = 1,ipageSize = 10) => {
-    return request({
-        url : '/User/GetUserListPage',
-        method:'get',
-        params:{
-            nickname,roleid,pageIndex : 1,ipageSize : 10
-        }
-    
-    
-    })
-
-}
-
 export const addUser = (userform)=>{
     return request({
         url:'/User/AddUser',

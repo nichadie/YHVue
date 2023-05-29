@@ -3,17 +3,17 @@
       <!--表单 条件-->
       <el-form inline>
         <el-form-item label="昵称">
-          <el-input placeholder="昵称"></el-input>
+          <el-input placeholder="昵称" :value="condition.nickname"></el-input>
         </el-form-item>
         <el-form-item label="角色">
-          <el-select v-model="roleID" :clearable="true">
+          <el-select v-model="condition.roleid" :clearable="true">
             <el-option
               v-for="(item,index) in classifyList" :key="index"
               :label="item.Name" :value="item.ID"
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-button type="primary" >查询</el-button>
+        <el-button type="primary" @click="GetUserPageList">查询</el-button>
         <el-form-item></el-form-item>
         <el-dialog title="新增用户" :visible.sync="dialogFormVisible">
           <el-form :model="userform">
@@ -66,12 +66,12 @@
       </el-form>
       <!--表格-->
       <el-table border
-        :data="tableData"
+        :data="userform"
         style="width: 100%"
         height="250">
         <el-table-column
           fixed
-          prop="role"
+          prop="rolename"
           label="部门"
           sortable
           width="100">
@@ -118,12 +118,12 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-      
         background
+        :current-page.sync="page.pageIndex"
         :page-sizes="[10, 20, 50, 100]"
         :page-size="10"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400">
+        :total="total">
       </el-pagination>
     </div>
   </template>
@@ -148,8 +148,9 @@
         {ID:1,Name:"a"},
         {ID:2,Name:"b"}
         ],
-        userform:{
+        userform:[{
           nickname:'',
+          rolename:'',
           age:'',
           sex:'',
           username:'',
@@ -158,7 +159,7 @@
           birthday:'',
           password:'',
           email:'',
-        },
+        }],
         file:{
         url:'',
         },
@@ -175,9 +176,17 @@
     methods:{
       //获取列表数据
       GetUserPageList(){
+        console.log(this.condition.nickname,"999999")
         //调用接口获取
         getUserPageList(this.page.pageIndex,this.page.pageSize,this.condition).then(res=>{
-          console.log(res);
+          if(res.code==-1){
+            this.$message.error("获取用户列表调用接口异常!")
+          }
+          if(res.code==200){
+            console.log(res)
+            this.userform = res.data.list
+            this.total = res.data.total
+          }
         }).catch(err=>{
           console.log(err)
         })
@@ -188,9 +197,10 @@
       handleSizeChange(val){
         this.pageSize = val
       },
-      //当前页
+      //当前页改变
       handleCurrentChange(val) {
-        pageIndex = val 
+        this.page.pageIndex = val ,
+        this.GetUserPageList()
       },
       //弹出窗口新增/修改
       ShowUser(){

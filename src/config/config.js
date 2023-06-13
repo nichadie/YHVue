@@ -47,6 +47,7 @@ module.exports = {
         return user ? JSON.parse(user) : "";
     },
     setUser(user) {
+        
         if (user) {
             localStorage.setItem("User", JSON.stringify(user));
         }

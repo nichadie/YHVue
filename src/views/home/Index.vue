@@ -2,6 +2,10 @@
   <div>
     <el-row>
       <el-col :span="6">
+        <div id="he-plugin-standard"></div>
+
+      </el-col>
+      <el-col :span="6">
         <transition name="el-zoom-in-top">
           <el-card
             class="box-card"
@@ -19,28 +23,6 @@
               class="text item"
             >
               {{ item.title }}
-            </div>
-          </el-card>
-        </transition>
-      </el-col>
-      <el-col :span="6">
-        <transition name="el-zoom-in-top">
-          <el-card class="box-card" v-if="homeData.articles.length > 0">
-            <div slot="header" class="clearfix">
-              <span>
-                <el-tag effect="dark" color="#46bf89">最新热门文章</el-tag>
-              </span>
-            </div>
-            <div
-              v-for="(item, index) in homeData.articles"
-              :key="index"
-              class="text item"
-            >
-              <a
-                :href="$webUrl + '#/articleDetail?articleid=' + item.id"
-                target="_blank"
-                >{{ item.title }}</a
-              >
             </div>
           </el-card>
         </transition>
@@ -88,6 +70,7 @@
 </template>
 
 <script>
+
 export default {
   name: "home",
   data() {
@@ -147,6 +130,7 @@ export default {
   created() {
     this.getHomeData();
   },
+
   methods: {
     getHomeData() {},
   },

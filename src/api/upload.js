@@ -1,6 +1,15 @@
 import request from '@/utils/request'
 
+export function uploadimage(formData){
+    return request({
+        url:`UpFiles/UploadFiles`,
+        method:'post',
+        data:formData
 
+
+    })
+
+}
 
 /**
  * 上传文件转换base64码

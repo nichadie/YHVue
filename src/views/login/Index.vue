@@ -113,10 +113,13 @@ export default {
           //调用后台管理登录api
           adminLogin(this.loginForm.userName,this.loginForm.password)
           .then((result) => {
+            //console.log(result)
             if(result.code==200&&result.data.veryfyResult){
               this.$message.success("登陆成功！");
               //保存token到本地存储
               this.$config.setToken(result.data.token);
+              //console.log(result)
+              this.$config.setUser(result.data.data);
                   //替换页面组件
               this.$router.push({
                 path: this.redirect ? this.redirect : "/index",

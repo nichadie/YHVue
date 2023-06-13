@@ -13,7 +13,7 @@
       <el-dropdown class="avatar-container">
         <div class="avatar-wrapper">
           <img
-            src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2F2021%2Fedpic_source%2Fa9%2F33%2F64%2Fa93364a3f1dc74366d5dbc298935d1b7_16.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651301049&t=441e6822626e86e254b5ba730cfc22c5"
+            :src="$cosImageUrl+avatar"
             class="user-avatar"
           />
           <div class="user-name">
@@ -22,8 +22,8 @@
           </div>
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/index">
-            <el-dropdown-item> 个人信息 </el-dropdown-item>
+          <router-link to="/index/userInfo">
+            <el-dropdown-item > 个人信息 </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided @click.native="logout">
             <span style="display: block">注销登录</span>
@@ -43,7 +43,10 @@ import Screenfull from "@/components/Screenfull";
 export default {
   data() {
     return {
+      userinfo:{
+      },
       userName: "",
+      avatar:"",
     };
   },
   components: {
@@ -53,6 +56,7 @@ export default {
   },
   created() {
     this.userName = this.$config.getUser().userName;
+    this.avatar = this.$config.getUser().avatar;
   },
   computed: {
     ...mapGetters(["sidebar", "avatar"]),
@@ -61,6 +65,7 @@ export default {
     toggleSideBar() {
       this.$store.dispatch("app/toggleSideBar");
     },
+    
     async logout() {
       // this.$config.removeToken(); //清除token
       // this.$config.removeUser(); //清除登录的用户信息
@@ -69,6 +74,7 @@ export default {
       // this.$router.push(`/login?redirect=${this.$route.fullPath}`);
       this.$router.replace(`/login`);
     },
+    
   },
 };
 </script>

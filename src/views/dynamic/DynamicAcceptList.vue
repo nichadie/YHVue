@@ -62,11 +62,11 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
+      :current-page.sync="page.pageIndex"
+      :page-sizes="[50, 100, 200, 500]"
+      :page-size.sync="page.pageSize"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      :total="total">
     </el-pagination>
   </div>
 </template>
@@ -77,6 +77,10 @@ export default {
     return{
       classifyID : null,//分类
       tableData : [],
+      page:{//页面数据
+          pageSize:50,
+          pageIndex:1,
+        },
       total:0,//数据总数
       classifyList:[// 分类表 测试
       {ID:1,Name:"a"},
@@ -84,6 +88,19 @@ export default {
     ],
     };
   },
+  methods:{
+    //改变页数大小
+    handleSizeChange(val){
+        this.page.pageSize = val,
+        this.GetRolePageList()
+      },
+      //当前页改变
+      handleCurrentChange(val) {
+        this.page.pageIndex = val ,
+        this.GetRolePageList()
+      },
+  
+  }
 
 }
 </script>

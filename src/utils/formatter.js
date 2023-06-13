@@ -19,3 +19,7 @@ export const formatterStatus = (status,type) => {
     }
 }
 
+export const formatterTypeKey = (typekey) =>{
+    return typekey =="0"?"目录": typekey =="1"?"菜单":"按钮"
+}
+

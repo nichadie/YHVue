@@ -16,7 +16,7 @@ service.interceptors.request.use(
     //获取token
     const token = config.getToken();
     const refreshToken = config.getRefreshToken();
-    // console.log("token：", token);
+    //console.log("token：", token);
     if (token) {
       //设置token到请求头的Authorization
       options.headers.Authorization = "Bearer " + token;

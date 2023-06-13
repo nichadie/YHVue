@@ -72,6 +72,17 @@ const routes = [
           affix: true
         },
         children: [] //不存在children属性，此时会作为一级目录展示
+      },
+      {
+        path: 'userInfo',
+        name: 'userInfo',
+        component: () => import('@/views/setting/UserInfo.vue'),
+        hidden: false,
+        meta: {
+          title: "个人信息",
+          affix: true
+        },
+        children: [] //不存在children属性，此时会作为一级目录展示
       }
 
     ]

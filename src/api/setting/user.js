@@ -1,5 +1,21 @@
 import request from "@/utils/request"
 
+/**
+ * 获取用户信息
+ * @param {*} user 
+ */
+export function getUserInfo() {
+    return new Promise((resolve, reject) => {
+      request({
+        url: 'Auth/GetUserInfoAsync',
+        method: 'get'
+      }).then(response => {
+        resolve(response.data);
+      }).catch(error => {
+        reject(error);
+      })
+    });
+  }
 
 /**
  * 获取用户分页数据列表
@@ -20,19 +36,45 @@ export function getUserPageList(pageIndex,pageSize,condition){
     })
 
 }
-
 /**
- * 增加用户
- * @param {*} userform 
+ * 添加用户
+ * @param {*} user 
  * @returns 
  */
-export const addUser = (userform)=>{
+export function addUser(user){
     return request({
-        url:'/User/AddUser',
+        url:`User/AddUser`,
         method:'post',
-        params:{
-            userform
-        }
+        data:user
     
     })
 }
+
+/**
+ * 更改用户
+ * @param {*} user 
+ * @returns 
+ */
+export async function  updateUser(user){
+    return request({
+        url:`User/UpdateUser`,
+        method:'post',
+        data:user
+    
+    })
+}
+
+/**
+ * 删除用户
+ * @param {*} user 
+ * @returns 
+ */
+export function deleteUser(user){
+    return request({
+        url:`User/DeleteUser`,
+        method:'post',
+        data:user
+    
+    })
+}
+

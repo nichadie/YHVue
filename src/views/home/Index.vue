@@ -1,31 +1,10 @@
 <template>
   <div>
+    
     <el-row>
-      <el-col :span="6">
-        <div id="he-plugin-standard"></div>
-
-      </el-col>
-      <el-col :span="6">
-        <transition name="el-zoom-in-top">
-          <el-card
-            class="box-card"
-            size="small"
-            v-if="homeData.notices.length > 0"
-          >
-            <div slot="header" class="clearfix">
-              <span>
-                <el-tag effect="dark" color="#46bf89">最新系统公告</el-tag>
-              </span>
-            </div>
-            <div
-              v-for="(item, index) in homeData.notices"
-              :key="index"
-              class="text item"
-            >
-              {{ item.title }}
-            </div>
-          </el-card>
-        </transition>
+      <el-col :span="6" >
+        <LocalWether ></LocalWether>
+        
       </el-col>
       <el-col :span="6">
         <transition name="el-zoom-in-top">
@@ -70,9 +49,12 @@
 </template>
 
 <script>
-
+import LocalWether from '@/views/home/LocalWether.vue'
 export default {
   name: "home",
+  components: {
+    LocalWether
+  },
   data() {
     return {
       homeData: {
@@ -89,6 +71,7 @@ export default {
             userName: null,
           },
         ],
+        src:"http://192.168.50.30:5005/clound.gif",
         articles: [
           {
             createTime: "2023-04-05 14:33:25",

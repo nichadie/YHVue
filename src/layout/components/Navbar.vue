@@ -1,13 +1,19 @@
 <template>
+
+
   <div class="navbar">
+    
     <hamburger
       :is-active="sidebar.opened"
       class="hamburger-container"
       @toggleClick="toggleSideBar"
     />
+
     <!-- 面包屑 -->
     <Breadcrumb class="breadcrumb-container" />
+  
     <div class="right-menu">
+
       <screenfull id="screenfull" class="right-menu-item hover-effect" />
       <!-- 个人信息下拉菜单 -->
       <el-dropdown class="avatar-container">
@@ -39,7 +45,6 @@ import { mapGetters } from "vuex";
 import Breadcrumb from "@/components/Breadcrumb";
 import Hamburger from "@/components/Hamburger";
 import Screenfull from "@/components/Screenfull";
-
 export default {
   data() {
     return {

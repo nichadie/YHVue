@@ -3,8 +3,9 @@
     
     <el-row>
       <el-col :span="6" >
-        <LocalWether ></LocalWether>
-        
+          <div>
+            <LocalWether ></LocalWether>
+          </div>
       </el-col>
       <el-col :span="6">
         <transition name="el-zoom-in-top">
@@ -51,6 +52,7 @@
 <script>
 import LocalWether from '@/views/home/LocalWether.vue'
 export default {
+  
   name: "home",
   components: {
     LocalWether
@@ -71,7 +73,7 @@ export default {
             userName: null,
           },
         ],
-        src:"http://192.168.50.30:5005/clound.gif",
+        
         articles: [
           {
             createTime: "2023-04-05 14:33:25",
